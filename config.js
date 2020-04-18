@@ -33,7 +33,7 @@ function makeToneChords(ref) {
     const chordIndex = (chordBase + refIndex) % 12
     const chord = NOTES[chordIndex]
     const chordType = toneChords[degree]
-    return { [chord + chordType]: makeChord(chordIndex, readableChords[chordType]) }
+    return [[chord], [chordType], makeChord(chordIndex, readableChords[chordType])]
   })
 }
 
