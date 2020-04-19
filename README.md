@@ -4,8 +4,8 @@
 2. `yarn`
 3. `yarn start`
 
-Here is tone chords
+Here is tone chords  
 ![](tone.gif)
 
-Here is tab chords
+Here is tab chords  
 ![](tab.gif)
