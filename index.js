@@ -1,7 +1,10 @@
 const prompt = require('prompt')
-const { makeToneChords, readableChords, NOTES, DEGREES } = require('./config')
-const { makeChordTab, diagrams } = require('./chordDiagrams')
-console.log(NOTES)
+const { NOTES, DEGREES, DIAGRAMS } = require('./config')
+const { makeToneChords } = require('./chord')
+const { makeChordTab } = require('./tab')
+
+console.log('Only working with # notation :')
+console.log(NOTES.join(', '))
 
 const properties = [
   {
@@ -30,9 +33,9 @@ const properties = [
   {
     name: 'type',
     type: 'string',
-    description: `Choose a chord type : ${Object.keys(diagrams).join(', ')} ?`,
+    description: `Choose a chord type : ${Object.keys(DIAGRAMS).join(', ')} ?`,
     // before: (type) => type.toUpperCase(),
-    conform: (type) => !!Object.keys(diagrams).includes(type),
+    conform: (type) => !!Object.keys(DIAGRAMS).includes(type),
     ask: () => prompt.history('toneOrTab').value === 'chord',
   }
 ]
@@ -46,9 +49,9 @@ prompt.get(properties, function (err, result) {
    *  Display tone chords
    */
   if (result.toneOrTab === 'tone') {
+
     const chords = makeToneChords(result.tone)
-    console.log(`Here is the ${result.tone} tone chords :`)
-    chords.map((chordInfo, index) => {
+                  .map((chordInfo, index) => {
       const [chord, chordType, chordNotes] = chordInfo
       const degreeString = 
            (DEGREES[index].length === 1 && DEGREES[index] + '  ')
@@ -62,32 +65,39 @@ prompt.get(properties, function (err, result) {
         || (finalChord.length === 4 && finalChord + '  ')
         || (finalChord.length === 5 && finalChord + ' ')
         || finalChord
-      console.log(`${degreeString} ${finalChordString} :`, ...chordNotes)
+
+      return `${degreeString} ${finalChordString} : ${chordNotes.join(' ')}`
     })
+    console.log(`Here is the ${result.tone} tone chords :`)
+    console.log(chords.join('\n'))
   }
   /**
    *  Display chord tabs
    */
   if (result.toneOrTab === 'chord') {
-    const tabs = diagrams[result.type] || diagrams[result.type.toString()]
+    const tabs = DIAGRAMS[result.type] || DIAGRAMS[result.type.toString()]
     const keys = Object.keys(tabs)
     const chords = keys.map(key => {
       const differences = [
         NOTES.indexOf(result.chord) - NOTES.indexOf(key),
-        12 - NOTES.indexOf(key) - NOTES.indexOf(result.chord),
+        12 - (NOTES.indexOf(key) - NOTES.indexOf(result.chord)),
       ]
-      return tabs[key].map(chord => {
+      return tabs[key].map(tab => {
+        // find the only one possible difference
+        // following the tab
+        // tabs can't be negative, and won't be above 12th fret
         const diff = (
-          Math.min(...chord) + differences[0] >= 0
-          && Math.max(...chord) + differences[0] <= 12
+          Math.min(...tab) + differences[0] >= 0
+          && Math.max(...tab) + differences[0] <= 12
         ) ? differences[0] : differences[1]
-        return chord.map(string => {
+        // return the "moved" tab
+        return tab.map(string => {
           if (string === null) return string
           return string + diff
         }).reduce((acc, val) => acc.concat(val), []) // Since .flat is not working -.-
       }).reduce((acc, val) => acc.concat(val), []) // Since .flat is not working -.-
     })
-    console.log(`Here is ${result.type} tabs`)
+    console.log(`Here is ${result.chord + result.type} tabs`)
     console.log(makeChordTab(chords))
   }
   
