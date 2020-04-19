@@ -1,63 +1,68 @@
-const majorDiagrams = [
-	[0, 2, 2, 1, 0, 0],
-	[null, 0, 2, 2, 2, 0],
-	[3, 2, 0, 0, 3, 3],
-	[null, 3, 2, 0, 1, 0],
-	[null, null, 0, 2, 3, 2],
-]
-const minorDiagrams = [
+const majorDiagrams = {
+	E: [[0, 2, 2, 1, 0, 0]],
+	A: [[null, 0, 2, 2, 2, 0]],
+	G: [[3, 2, 0, 0, 3, 3]],
+	C: [[null, 3, 2, 0, 1, 0]],
+	D: [[null, null, 0, 2, 3, 2]],
+}
+
+const minorDiagrams = {
 	// Em
-	 !(majorDiagrams[0][3] = 0) && majorDiagrams[0],
+	E: [[0, 2, 2, 0, 0, 0]],
 	// Am
-	!!(majorDiagrams[1][4] = 1) && majorDiagrams[1],
+	A: [[null, 0, 2, 2, 1, 0]],
 	// Dm
-	!!(majorDiagrams[4][5] = 1) && majorDiagrams[4],
-]
-const seventhDiagrams = [
-	// E7
-	 !(majorDiagrams[0][2] = 0) && majorDiagrams[0],
-	 !(majorDiagrams[0][4] = 3) && majorDiagrams[0],
-	 !(majorDiagrams[0][2] = 0) && !(majorDiagrams[0][4] = 3) && majorDiagrams[0],
-	// A7
-	 !(majorDiagrams[1][3] = 0) && majorDiagrams[1],
-	 !(majorDiagrams[1][5] = 3) && majorDiagrams[1],
-	 !(majorDiagrams[1][3] = 0) && !(majorDiagrams[1][5] = 3) && majorDiagrams[1],
-	// G7
-	 !(majorDiagrams[2][4] = 0) && !(majorDiagrams[2][5] = 1) && majorDiagrams[2],
-	// C7
-	 !(majorDiagrams[3][3] = 3) && majorDiagrams[3],
-	// D7
-	 !(majorDiagrams[4][4] = 1) && majorDiagrams[4],
-]
-const seventhMajorDiagrams = [
+	D: [[null, null, 0, 2, 3, 1]],
+}
+const seventhDiagrams = {
+	E: [
+		[0, 2, 0, 1, 0, 0],
+		// [0, 2, 2, 1, 3, 0],
+		// [0, 2, 0, 1, 3, 0],
+	],
+	A: [
+		[null, 0, 2, 0, 2, 0],
+		// [null, 0, 2, 2, 2, 3],
+		// [null, 0, 2, 0, 2, 3],
+	],
+	G: [[3, 2, 0, 0, 0, 1]],
+	C: [[null, 3, 2, 3, 1, 0]],
+	D: [[null, null, 0, 2, 1, 2]],
+}
+const seventhMajorDiagrams = {
 	// E7M
-	 !(majorDiagrams[0][1] = null) && !(majorDiagrams[0][2] = 1) && !(majorDiagrams[0][5] = null) && majorDiagrams[0],
+	E: [[0, null, 1, 1, 0, null]],
 	// A7M
-	 !(majorDiagrams[1][3] = 1) && majorDiagrams[1],
-	 !(majorDiagrams[1][5] = 4) && majorDiagrams[1],
+	A: [[null, 0, 2, 1, 2, 0]],
 	// C7M
-	 !(majorDiagrams[3][4] = 0) && majorDiagrams[3],
+	C: [[null, 3, 2, 0, 0, 0]],
 	// D7M
-	 !(majorDiagrams[4][4] = 2) && majorDiagrams[4],
-]
-const minorSeventhDiagrams = [
+	D: [[null, null, 0, 2, 2, 2]],
+}
+const minorSeventhDiagrams = {
 	// Em7
-	 !(minorDiagrams[0][2] = 0) && minorDiagrams[0],
-	 !(minorDiagrams[0][4] = 3) && minorDiagrams[0],
-	 !(minorDiagrams[0][2] = 0) && !(minorDiagrams[0][4] = 3) && minorDiagrams[0],
+	E: [
+		[0, 2, 0, 0, 0, 0],
+		[0, 2, 2, 0, 3, 0],
+		[0, 2, 0, 0, 3, 0],
+	],
 	// Am7
-	 !(minorDiagrams[1][3] = 0) && minorDiagrams[1],
-	 !(minorDiagrams[1][5] = 3) && minorDiagrams[1],
-	 !(minorDiagrams[1][3] = 0) && !(minorDiagrams[1][5] = 3) && minorDiagrams[1],
+	A: [
+		[null, 0, 2, 0, 1, 0],
+		[null, 0, 2, 2, 1, 3],
+		[null, 0, 2, 0, 1, 3],
+	],
 	// Dm7
-	 !(minorDiagrams[2][4] = 1) && minorDiagrams[2],
-]
-const minorSeventhFlatFifthDiagrams = [
-	[null, 0, 1, 0, 1, null],
-]
-const diminishedDiagrams = [
-	[null, 1, 2, 0, 2, null],
-]
+	D: [[null, null, 0, 2, 1, 1]],
+}
+const minorSeventhFlatFifthDiagrams = {
+	A: [[null, 0, 1, 0, 1, null]],
+	F: [[1, null, 1, 1, 0, null]],
+}
+const diminishedDiagrams = {
+	'A#': [[null, 1, 2, 0, 2, null]],
+	F: [[1, null, 0, 1, 0, null]],
+}
 
 const diagrams = {
 	major: majorDiagrams,
@@ -76,12 +81,7 @@ const template = [
 	'D ',
 	'A ',
 	'E ',
-	// '  ',
 ]
-
-// const fretTemplate = ['|', '|', '|', '|', '|', '|']
-
-// const caseTemplate = ['-', '-', '-', '-', '-', '-']
 
 function makeChordDiagram(chord) {
 	console.log('chord', chord)
@@ -101,28 +101,33 @@ function makeChordDiagram(chord) {
 		}).reverse()
 		fret.push(i ? ` ${i} ` : ' ')
 		const separator = i > 0 ? fretSeparator : nut
-		// console.log(separator)
 		diagram[0] += fret[0] + separator
 		diagram[1] += fret[1] + separator
 		diagram[2] += fret[2] + separator
 		diagram[3] += fret[3] + separator
 		diagram[4] += fret[4] + separator
 		diagram[5] += fret[5] + separator
-		// diagram[6] += fret[6] + separator
 	}
-	// diagram.map(item => )
 	return diagram.join('\n') + '\n'
-
 }
 
-function makeChordTab(chord) {
+function formatChord(chord) {
+	return chord.map(string => {
+		if (string === null) return '-x--'
+		if (string < 10) return `-${string}--`
+		return `-${string}-`
+	})
+}
+
+function makeChordTab(chords) {
+	const formatedChords = chords.map(chord => formatChord(chord))
+	const tab = formatedChords.reduce((currentChords, nextChord) => {
+		return currentChords.map((curr,i) => curr + nextChord[i])
+	}, new Array(6).fill(''))
 	return template.map((string, stringNumber) => {
-		return string + (chord[chord.length - stringNumber - 1] !== null
-					? chord[chord.length - stringNumber - 1] : 'x')
+		return string + (tab[tab.length - stringNumber - 1] !== null
+					? tab[tab.length - stringNumber - 1] : 'x')
 	}).join('\n')
-	// console.log(chordTab)
-	// chordTab.push(' ')
-	// console.log(chordTab.join('\n'))
 }
 
 module.exports = {

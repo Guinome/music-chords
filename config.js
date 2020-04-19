@@ -40,6 +40,7 @@ function makeToneChords(ref) {
 module.exports = {
   makeChord,
   makeToneChords,
+  readableChords,
   DEGREES,
   NOTES,
 }
